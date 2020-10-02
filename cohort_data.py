@@ -1,10 +1,4 @@
 """Functions to parse a file containing student data."""
-def line_into_list(filename):
-  the_file = open(filename)
-  for line in the_file:
-    line = line.strip()
-    record = line.split('|')
-  return record
 
 def all_houses(filename):
     """Return a set of all house names in the given file.
@@ -110,7 +104,10 @@ def all_names_by_house(filename):
     Return:
       - list[list]: a list of lists
     """
+		
 
+    the_file = open(filename)
+    
     dumbledores_army = []
     gryffindor = []
     hufflepuff = []
@@ -118,10 +115,26 @@ def all_names_by_house(filename):
     slytherin = []
     ghosts = []
     instructors = []
-
-    # TODO: replace this with your code
-
-    return []
+    for line in the_file:
+      line = line.strip()
+      record = line.split('|')
+      if record[2] == '':
+        if record[4] == 'I':
+          instructors.append(f'{record[0]} {record[1]}')
+        else:
+          ghosts.append(f'{record[0]} {record[1]}')
+      elif record[2] == 'Dumbledore\'s Army':
+        dumbledores_army.append(f'{record[0]} {record[1]}')
+      elif record[2] == 'Gryffindor':
+        gryffindor.append(f'{record[0]} {record[1]}')
+      elif record[2] == 'Hufflepuff':
+        hufflepuff.append(f'{record[0]} {record[1]}')
+      elif record[2] == 'Ravenclaw':
+        ravenclaw.append(f'{record[0]} {record[1]}')
+      elif record[2] == 'Slytherin':
+        slytherin.append(f'{record[0]} {record[1]}')
+    houses = [sorted(dumbledores_army), sorted(gryffindor), sorted(hufflepuff), sorted(ravenclaw), sorted(slytherin), sorted(ghosts), sorted(instructors)] 	
+    return houses
 
 
 def all_data(filename):
