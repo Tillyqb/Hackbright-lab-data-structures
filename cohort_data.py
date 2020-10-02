@@ -1,5 +1,10 @@
 """Functions to parse a file containing student data."""
-
+def line_into_list(filename):
+  the_file = open(filename)
+  for line in the_file:
+    line = line.strip()
+    record = line.split('|')
+  return record
 
 def all_houses(filename):
     """Return a set of all house names in the given file.
@@ -54,8 +59,21 @@ def students_by_cohort(filename, cohort='All'):
     Return:
       - list[list]: a list of lists
     """
-
     students = []
+
+    the_file = open(filename)
+    for line in the_file:
+      line = line.strip()
+      record = line.split('|')
+      if len(record[4]) != 1:
+        if cohort == 'All':
+          students.append(f"{record[0]} {record[1]}")
+        elif cohort == '':
+          return []
+        else:
+          if record[4] == cohort:
+            students.append(f"{record[0]} {record[1]}")
+
 
     # TODO: replace this with your code
 
