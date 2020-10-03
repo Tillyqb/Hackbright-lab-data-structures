@@ -1,5 +1,4 @@
 """Functions to parse a file containing student data."""
-
 def all_houses(filename):
     """Return a set of all house names in the given file.
 
@@ -133,7 +132,9 @@ def all_names_by_house(filename):
         ravenclaw.append(f'{record[0]} {record[1]}')
       elif record[2] == 'Slytherin':
         slytherin.append(f'{record[0]} {record[1]}')
-    houses = [sorted(dumbledores_army), sorted(gryffindor), sorted(hufflepuff), sorted(ravenclaw), sorted(slytherin), sorted(ghosts), sorted(instructors)] 	
+    houses = [sorted(dumbledores_army), sorted(gryffindor), 
+              sorted(hufflepuff), sorted(ravenclaw), sorted(slytherin),
+              sorted(ghosts), sorted(instructors)] 	
     return houses
 
 
@@ -155,10 +156,13 @@ def all_data(filename):
     Return:
       - list[tuple]: a list of tuples
     """
-
+    the_file = open(filename)
     all_data = []
-
-    # TODO: replace this with your code
+    for line in the_file:
+      line = line.strip()
+      line = line.split('|')
+      line = (f'{line[0]} {line[1]}', line[2], line[3], line[4])
+      all_data.append(line)
 
     return all_data
 
@@ -184,8 +188,12 @@ def get_cohort_for(filename, name):
       - str: the person's cohort or None
     """
 
-    # TODO: replace this with your code
-
+    the_file = open(filename)
+    for line in the_file:
+      line = line.strip()
+      line = line.split('|')
+      if (f'{line[0]} {line[1]}') == name:
+        return line[4]
 
 def find_duped_last_names(filename):
     """Return a set of duplicated last names that exist in the data.
@@ -200,8 +208,18 @@ def find_duped_last_names(filename):
     Return:
       - set[str]: a set of strings
     """
+    last_names = []
+    the_file = open('cohort_data.txt')
+    for line in the_file:
+      line = line.strip()
+      line = line.split('|')
+      last_names.append(line[1])
 
-    # TODO: replace this with your code
+    duped_names = ()
+    for line in 'cohort_data.txt':
+      line = line.strip()
+      line = line.split('|')
+      if l
 
 
 def get_housemates_for(filename, name):
