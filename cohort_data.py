@@ -190,8 +190,7 @@ def get_cohort_for(filename, name):
 
     the_file = open(filename)
     for line in the_file:
-      line = line.strip()
-      line = line.split('|')
+      line = line.strip().line.split('|')
       if (f'{line[0]} {line[1]}') == name:
         return line[4]
 
@@ -209,17 +208,18 @@ def find_duped_last_names(filename):
       - set[str]: a set of strings
     """
     last_names = []
-    the_file = open('cohort_data.txt')
-    for line in the_file:
-      line = line.strip()
-      line = line.split('|')
-      last_names.append(line[1])
+    duplicate_names = set()
 
-    duped_names = ()
-    for line in 'cohort_data.txt':
-      line = line.strip()
-      line = line.split('|')
-      if l
+    for line in open(filename):
+      line = line.rstrip().split('|')
+      last_names.append(line[1])
+      if line[1] in last_names:
+        duplicate_names.add(line[1])
+    
+    return duplicate_names
+      
+
+      
 
 
 def get_housemates_for(filename, name):
